@@ -4,15 +4,23 @@ import gmplot
 with open("data.json", "r") as file:
     data = json.load(file)
 
-first_device_data = list(data.values())[0]
-first_position = first_device_data[0]["decrypted_payload"]
-gmap = gmplot.GoogleMapPlotter(first_position["lat"], first_position["lon"], 13)
+sorted_data = []
 for device_id, positions in data.items():
     for pos in positions:
-        lat = pos["decrypted_payload"]["lat"]
-        lon = pos["decrypted_payload"]["lon"]
+        sorted_data.append(pos)
+sorted_data.sort(key=lambda x: x["decrypted_payload"]["timestamp"])
+
+latitudes = [pos["decrypted_payload"]["lat"] for pos in sorted_data]
+longitudes = [pos["decrypted_payload"]["lon"] for pos in sorted_data]
+
+if latitudes and longitudes:
+    gmap = gmplot.GoogleMapPlotter(latitudes[0], longitudes[0], 13)
+    gmap.plot(latitudes, longitudes, color='red', edge_width=2.5)
+    for lat, lon in zip(latitudes, longitudes):
         gmap.marker(lat, lon, color='red')
 
-gmap.draw("map.html")
+    gmap.draw("map.html")
 
-print("Map generated! Open 'map.html' in a web browser to view.")
+    print("Map generated! Open 'map.html' in a web browser to view.")
+else:
+    print("No data available to plot.")
