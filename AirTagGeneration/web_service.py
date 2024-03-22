@@ -222,7 +222,7 @@ async def multiple_device_encrypted_reports(
 
 @app.post("/Decryption/", summary="Decrypt reports for one or many devices.")
 async def report_decryption(
-        private_keys: Annotated[str | None, Header(
+        private_keys: Annotated[str, None, Header(
             description="**Private Key is a secret and shall not be provided to any untrusted website!**")] = None,
         reports: UploadFile = File(..., max_size=5 * 1024 * 1024,
                                    description="The JSON response from MultipleDeviceEncryptedReports or "
@@ -304,7 +304,7 @@ async def report_decryption(
 
 @app.post("/KeyToMonitor/", summary="Add a key to monitor db.")
 async def key_to_monitor(
-        private_key: Annotated[str | None, Body(
+        private_key: Annotated[str, None, Body(
             description="**Private Key is a secret and shall not be provided to any untrusted website!**")] = None,
         friendly_name: Annotated[str, Body(description="Friendly name for the key")] = "HayTag",
         mqtt_server: Annotated[str, Body(description="MQTT Server")] = "127.0.0.1",
