@@ -33,6 +33,7 @@ This app extends the functionality of the FlipperZero's bluetooth capabilities, 
    - Initiate a scan. Wait for your SmartTag to appear as a "FindMy" device.
 6. **Capture Data:** Click **Raw** or **View Raw** to capture your **payload** and note your tag's **MAC Address**. Immediately remove the tag's battery to prevent key/MAC rotation.
 7. **Enter Data in FlipperZero App:** Input the captured **payload** and **MAC Address** into the FlipperZero app.
+8. **NOTE:** You will "spend" an AirTag since it can't ever be used again. If the old AirTag is powered up, the cloned ID will be inactivated when the old tag is taking over the ownership of the ID again. Tip buy a cheap AirTag knockoff.
 </details>
 <details>
   <summary>Option B: AirTag Key Generation</summary>
