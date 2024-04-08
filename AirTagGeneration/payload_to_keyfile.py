@@ -12,8 +12,8 @@ def gen(addr_hex, payload_hex):
 
     return key
 
-payload = input("enter payload: ").replace(" ", "")
-mac = input("enter mac address: ").replace(" ", "").replace(":", "")
+payload = input("Enter AirTag payload data: ").replace(" ", "")
+mac = input("Enter AirTag mac address: ").replace(" ", "").replace(":", "")
 adv_key = bytes.fromhex(gen(mac.lower(), payload.lower()).hex())
 
 with open(f"{mac}.keys", "w") as f:
