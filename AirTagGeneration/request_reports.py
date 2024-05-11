@@ -32,7 +32,7 @@ def decode_tag(data):
     latitude = struct.unpack(">i", data[0:4])[0] / 10000000.0
     longitude = struct.unpack(">i", data[4:8])[0] / 10000000.0
     confidence = int.from_bytes(data[8:9], byteorder='big')
-    status = int.from_bytes(data[9:10])
+    status = int.from_bytes(data[9:10], byteorder='big')
     return {'lat': latitude, 'lon': longitude, 'conf': confidence, 'status': status}
 
 
@@ -165,4 +165,3 @@ if __name__ == "__main__":
             print("Authentication failed. Please check your Apple ID credentials.")
         else:
             print(e)
-            
