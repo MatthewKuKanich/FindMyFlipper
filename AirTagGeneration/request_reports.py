@@ -31,8 +31,8 @@ def decrypt(enc_data, algorithm_dkey, mode):
 def decode_tag(data):
     latitude = struct.unpack(">i", data[0:4])[0] / 10000000.0
     longitude = struct.unpack(">i", data[4:8])[0] / 10000000.0
-    confidence = int.from_bytes(data[8:9])
-    status = int.from_bytes(data[9:10])
+    confidence = int.from_bytes(data[8:9], byteorder='big')
+    status = int.from_bytes(data[9:10], byteorder='big')
     return {'lat': latitude, 'lon': longitude, 'conf': confidence, 'status': status}
 
 
@@ -112,7 +112,7 @@ if __name__ == "__main__":
             priv = int.from_bytes(base64.b64decode(privkeys[report['id']]), byteorder='big')
             data = base64.b64decode(report['payload'])
             # the following is all copied from https://github.com/hatomist/openhaystack-python, thanks @hatomist!
-            timestamp = int.from_bytes(data[0:4], 'big') + 978307200
+            timestamp = int.from_bytes(data[0:4], byteorder='big') + 978307200
 
             if timestamp >= startdate:
                 # check if NULL bytes are present in the data
