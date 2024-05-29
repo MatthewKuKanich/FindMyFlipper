@@ -41,7 +41,7 @@ This app extends the functionality of the FlipperZero's bluetooth capabilities, 
 <summary><b>Option B: AirTag Key Generation</b></summary>
   <br>
 
-Video Tutorial: https://youtu.be/XGwHmwvQoqo?si=CAsKWEqGP5VFi9p9
+Video Tutorial: https://youtu.be/XGwHmwvQoqo
 
 ### Prerequisites
 
