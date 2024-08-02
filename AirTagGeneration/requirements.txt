@@ -11,3 +11,4 @@ certifi
 paho-mqtt
 pycryptodome
 python-multipart
+setuptools
