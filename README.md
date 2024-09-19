@@ -99,7 +99,8 @@ pip3 install -r requirements.txt
 ```
 ### 7. Generate Keys for AirTags
 
-Run the ```generate_keys.py``` script in the current terminal to generate the keys needed for AirTags, which will be saved in a new folder called 'keys'.
+Run the ```generate_keys.py --trusteddevice``` script in the current terminal to generate the keys needed for AirTags, which will be saved in a new folder called 'keys'.
+The option ` --regen --trusteddevice` seems mandatory, the SMS default option is currently not available. 
 
 
 ### 8. Transfer the Generated Keys to Flipper Zero
