@@ -1,4 +1,5 @@
 data.json
 LocationMap_*.html
 venv/
-keys/*
+keys/
+__pycache__/

@@ -6,26 +6,22 @@ import os
 import re
 import sqlite3
 import struct
-from typing import Annotated
-
-from cryptography.hazmat.backends import default_backend
-from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
-from fastapi import FastAPI, UploadFile, Header, Body
-
 import requests
-from fastapi.params import Query, File
-from fastapi.responses import JSONResponse
-
-from request_reports import getAuth
-from cores.pypush_gsa_icloud import icloud_login_mobileme, generate_anisette_headers
-from cryptography.hazmat.primitives.asymmetric import ec
-
 import base64
 import logging
 import uvicorn
 import time
 import paho.mqtt.publish as publish
 import certifi
+from typing import Annotated
+from fastapi import FastAPI, UploadFile, Header, Body
+from fastapi.params import Query, File
+from fastapi.responses import JSONResponse
+from request_reports import getAuth
+from cores.pypush_gsa_icloud import icloud_login_mobileme, generate_anisette_headers
+from cryptography.hazmat.primitives.asymmetric import ec
+from cryptography.hazmat.backends import default_backend
+from Decryptor import Decryptor
 
 logging.basicConfig(level=logging.ERROR)
 
@@ -106,33 +102,13 @@ def private_to_hashed_key(private_key_b64: str) -> str:
     logging.debug(f"Hash ADV Key: {s256_b64}")
     return s256_b64
 
-
-def sha256(data):
-    digest = hashlib.new("sha256")
-    digest.update(data)
-    return digest.digest()
-
-
-def decrypt(enc_data, algorithm_dkey, mode):
-    decryptor = Cipher(algorithm_dkey, mode, default_backend()).decryptor()
-    return decryptor.update(enc_data) + decryptor.finalize()
-
-
 def decrypt_payload(report: str, private_key: str) -> {}:
     data = base64.b64decode(report)
     priv = int.from_bytes(base64.b64decode(private_key), byteorder="big")
-
     timestamp = int.from_bytes(data[0:4], byteorder="big") + 978307200
-    adj = len(data) - 88
-    eph_key = ec.EllipticCurvePublicKey.from_encoded_point(ec.SECP224R1(), data[5+adj:62+adj])
-    shared_key = ec.derive_private_key(priv, ec.SECP224R1(), default_backend()).exchange(ec.ECDH(), eph_key)
-    symmetric_key = sha256(shared_key + b'\x00\x00\x00\x01' + data[5+adj:62+adj])
-    iv = symmetric_key[16:]
-    decryption_key = symmetric_key[:16]
-    ciper_txt = data[62+adj:72+adj]
-    auth_tag = data[72+adj:]
 
-    clear_text = decrypt(ciper_txt, algorithms.AES(decryption_key), modes.GCM(iv, auth_tag))
+    decryptor = Decryptor(data, priv)
+    clear_text = decryptor.Decrypt()
 
     result = {}
     latitude = struct.unpack(">i", clear_text[0:4])[0] / 10000000.0
