@@ -180,6 +180,7 @@ uint8_t findmy_state_data_size(FindMyType type) {
     switch(type) {
     case FindMyTypeApple:
     case FindMyTypeSamsung:
+    case FindMyTypeGoogle:
         return 31;
     case FindMyTypeTile:
         return 21;
