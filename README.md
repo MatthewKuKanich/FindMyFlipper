@@ -13,7 +13,6 @@ This app extends the functionality of the FlipperZero's bluetooth capabilities, 
 ### Step 1: Installation
 - **Option A:** Use the released/precompiled firmware appropriate (FAP) for your device.
 - **Option B:** Build the firmware yourself using `fbt/ufbt`.
-- Both Installation options require you to be running a dev build of firmware. When release gets access to the extra BLE beacon this will change, thank you!
 - All firmware should now work with main branch, including icons
   
 ### Step 2: Obtaining SmartTag Data
