@@ -6,7 +6,7 @@ This app extends the functionality of the FlipperZero's bluetooth capabilities, 
 
 1. Tag Emulation: Clone your existing Apple AirTag, Samsung SmartTag, or Tile Tracker to the FlipperZero, or generate a key pair for use with the FindMy network without owning an actual AirTag.
 2. Customization: Users can adjust the interval between beacon broadcasts and modify the transmit power to suit their needs, optimizing for both visibility and battery life.
-3. Efficient Background Operation: The app is optimized to run in the background, ensuring that your FlipperZero can still be tracked with minimal battery usage and without stopping normal use.
+3. Efficient Background Operation: The app is optimized to run in the background, ensuring that your FlipperZero can still be tracked with minimal battery usage and without stopping normal use. The app uses less than 1 mA when in the background, so you shouldn't notice any impact on your battery.
 
 ## Usage Guide
 
